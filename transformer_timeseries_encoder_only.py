@@ -1,7 +1,7 @@
 # Example of timeseries Transformer. 
 # https://keras.io/examples/timeseries/timeseries_transformer_classification/ 
 # Transformer model with 2 features, with positional encoding.  No decoder.  
-# Note positional encoding can only be even in this code.  
+# Note positional encoding https://www.geeksforgeeks.org/positional-encoding-in-transformers/
 
 import os
 import numpy as np
