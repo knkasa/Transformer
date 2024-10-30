@@ -2,6 +2,7 @@
 # https://keras.io/examples/timeseries/timeseries_transformer_classification/ 
 # Transformer model with 2 features, with positional encoding.  No decoder.  
 # Note positional encoding https://www.geeksforgeeks.org/positional-encoding-in-transformers/
+#************ Note that positional encoding here only works if D is even numbers *****************
 
 import os
 import numpy as np
