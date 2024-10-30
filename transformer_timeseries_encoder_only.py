@@ -2,7 +2,7 @@
 # https://keras.io/examples/timeseries/timeseries_transformer_classification/ 
 # Transformer model with 2 features, with positional encoding.  No decoder.  
 # Note positional encoding https://www.geeksforgeeks.org/positional-encoding-in-transformers/
-#************ Note that positional encoding here only works if D is even numbers *****************
+#************ Note that positional encoding here only works if D is even numbers. see bottom of this code for how to do *****************
 
 import os
 import numpy as np
@@ -203,6 +203,36 @@ plt.show()
 import pdb; pdb.set_trace()  
 
 
+'''
+For odd number of features, use below.
 
+
+import numpy as np
+import tensorflow as tf
+
+def positional_encoding(length, depth):
+    # Ensure the depth is odd or even as needed
+    depth = int(depth)
+    positions = np.arange(length)[:, np.newaxis]       # (length, 1)
+    depths = np.arange(depth // 2)[np.newaxis, :] / (depth // 2)  # (1, depth//2)
+
+    angle_rates = 1 / (10000 ** depths)               # (1, depth//2)
+    angle_rads = positions * angle_rates              # (length, depth//2)
+
+    # Apply sin to even indices and cos to odd indices
+    if depth % 2 == 0:
+        pos_encoding = np.concatenate([np.sin(angle_rads), np.cos(angle_rads)], axis=-1)
+    else:
+        # For odd depth, add an additional sin column
+        pos_encoding = np.concatenate([np.sin(angle_rads), np.cos(angle_rads), np.sin(angle_rads[:, :1])], axis=-1)
+
+    # Reshape to add batch dimension if necessary, e.g., (1, length, depth)
+    pos_encoding = pos_encoding[np.newaxis, ...]
+    return tf.cast(pos_encoding, dtype=tf.float32)
+
+# Testing the function with odd and even depths
+print("Positional encoding with odd depth (length=10, depth=5):\n", positional_encoding(10, 5))
+print("\nPositional encoding with even depth (length=10, depth=6):\n", positional_encoding(10, 6))
+'''
 
     
