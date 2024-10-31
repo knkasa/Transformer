@@ -115,7 +115,7 @@ class transformer_model(tf.keras.Model):
         # "channels_first" is to reduce dimension to NxT.  "chaanels_last" is to reduce dimension to NxD.
         # We need to reduce the dimension because dense layer only accepts tensor of rank 2.
         # If you have multiple columns D, then you need to flatten T & D to make tensor rank 2.  NxTxD -> Nx(T*D) dimension.  
-        self.pooling = tf.keras.layers.GlobalAveragePooling1D(data_format="channels_first")
+        self.pooling = tf.keras.layers.GlobalAveragePooling1D(data_format="channels_last")
         
         self.dense_layer = tf.keras.layers.Dense(dense_units, activation="relu")
         self.dropout = tf.keras.layers.Dropout(dropout)
