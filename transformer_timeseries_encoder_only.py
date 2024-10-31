@@ -142,7 +142,7 @@ class transformer_model(tf.keras.Model):
     def call(self, inputs, training):
         
         x = inputs
-        x = tf.keras.layers.Add()([x, self.pos_encoding]) 
+        x = x + self.pos_encoding   #tf.keras.layers.Add()([x, self.pos_encoding]) 
         
         # Note that after the transformer_layer, the input dimension stays the same.  
         for _ in range(self.num_transformer):  # stack number of transformer layers.
